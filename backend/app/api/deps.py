@@ -1,26 +1,31 @@
-from fastapi import Depends, HTTPException, status, Request
-from jose import jwt, JWTError
+from fastapi import Depends, HTTPException, Request, status
+from jose import JWTError, jwt
 from pydantic import ValidationError
+from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession, create_async_engine
 from sqlalchemy.orm import sessionmaker
-from sqlalchemy import select
 import ssl
 
 from app.core.config import settings
 from app.models.user import AdminUser
 
 # ==========================================================
-# Database Engine (Render + Aiven + asyncpg SSL Compatible)
+# Database Engine (Render + Aiven PostgreSQL + asyncpg)
 # ==========================================================
 
 database_url = settings.DATABASE_URL
 connect_args = {}
 
-# Aiven PostgreSQL uses SSL. asyncpg doesn't accept sslmode=require in URL.
-if database_url.startswith("postgresql+asyncpg://") and "sslmode=require" in database_url:
+# Aiven PostgreSQL requires SSL.
+# asyncpg doesn't understand "sslmode=require" in the URL.
+if database_url.startswith("postgresql+asyncpg://"):
     database_url = database_url.replace("?sslmode=require", "")
 
-    ssl_context = ssl.create_default_context()
+    # SSL context for Render -> Aiven connection
+    ssl_context = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+    ssl_context.check_hostname = False
+    ssl_context.verify_mode = ssl.CERT_NONE
+
     connect_args["ssl"] = ssl_context
 
 engine = create_async_engine(
@@ -38,7 +43,6 @@ AsyncSessionLocal = sessionmaker(
     class_=AsyncSession,
     expire_on_commit=False,
 )
-
 
 # ==========================================================
 # Database Dependency
