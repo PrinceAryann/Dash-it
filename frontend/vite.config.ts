@@ -52,12 +52,32 @@ export default defineConfig(({ mode }) => {
 
       rollupOptions: {
         output: {
-          manualChunks: {
-            react: ["react", "react-dom", "react-router-dom"],
-            animation: ["framer-motion", "gsap"],
-            three: ["three", "@react-three/fiber", "@react-three/drei"],
-          },
+          manualChunks(id) {
+  if (id.includes("node_modules")) {
+    if (
+      id.includes("react") ||
+      id.includes("react-dom") ||
+      id.includes("react-router-dom")
+    ) {
+      return "react";
+    }
 
+    if (
+      id.includes("three") ||
+      id.includes("@react-three/fiber") ||
+      id.includes("@react-three/drei")
+    ) {
+      return "three";
+    }
+
+    if (
+      id.includes("framer-motion") ||
+      id.includes("gsap")
+    ) {
+      return "animation";
+    }
+  }
+},
           entryFileNames: "assets/js/[name]-[hash].js",
           chunkFileNames: "assets/js/[name]-[hash].js",
           assetFileNames: ({ name }) => {
