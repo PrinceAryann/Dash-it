@@ -1,11 +1,39 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PageTransition } from '@/components/animations/PageTransition';
 import { CuteLion } from '@/components/animations/CuteLion';
 import { Button } from '@/components/ui/Button';
+import { Loader2 } from 'lucide-react';
 
 export const ServerError: React.FC = () => {
-  const navigate = useNavigate();
+  const [isWaking, setIsWaking] = useState(false);
+
+  const handleWakeUp = async () => {
+    setIsWaking(true);
+    
+    const checkServer = async () => {
+      try {
+        const res = await fetch('/api/health');
+        if (res.ok) {
+          window.location.href = '/';
+          return true;
+        }
+      } catch (e) {
+        // Still sleeping or error
+      }
+      return false;
+    };
+
+    // Try immediately
+    if (await checkServer()) return;
+
+    // Keep trying every 3 seconds
+    const interval = setInterval(async () => {
+      if (await checkServer()) {
+        clearInterval(interval);
+      }
+    }, 3000);
+  };
 
   return (
     <PageTransition>
@@ -25,10 +53,26 @@ export const ServerError: React.FC = () => {
           </p>
           
           <div className="flex items-center justify-center gap-4">
-            <Button onClick={() => window.location.reload()} variant="primary" className="bg-gradient-aurora-blue">
-              Wake it up (Retry)
+            <Button 
+              onClick={handleWakeUp} 
+              disabled={isWaking}
+              variant="primary" 
+              className="bg-gradient-aurora-blue min-w-[180px]"
+            >
+              {isWaking ? (
+                <>
+                  <Loader2 className="w-5 h-5 mr-2 animate-spin inline" />
+                  Waking up...
+                </>
+              ) : (
+                "Wake it up (Retry)"
+              )}
             </Button>
-            <Button onClick={() => navigate('/')} variant="ghost">
+            <Button 
+              onClick={() => window.location.href = '/'} 
+              variant="ghost"
+              disabled={isWaking}
+            >
               Go back home
             </Button>
           </div>
