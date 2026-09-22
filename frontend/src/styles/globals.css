@@ -1,0 +1,297 @@
+@import url('https://api.fontshare.com/v2/css?f[]=clash-display@400,500,600,700&f[]=general-sans@300,400,500,600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@1,9..144,400&family=JetBrains+Mono:wght@400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary-400: #9A8FFF;
+  --color-primary-500: #7B6CFF;
+  --color-primary-600: #5C4CE0;
+
+  --color-secondary-400: #FF8FC0;
+  --color-secondary-500: #FF6CAB;
+  --color-secondary-600: #E24E8C;
+
+  --color-accent-cyan: #5CE1FF;
+  --color-accent-lime: #B6FF6C;
+  --color-accent-gold: #FFD37B;
+
+  --color-glass-fill-01: rgba(255, 255, 255, 0.04);
+  --color-glass-fill-02: rgba(255, 255, 255, 0.07);
+  --color-glass-fill-03: rgba(255, 255, 255, 0.10);
+  --color-glass-border: rgba(255, 255, 255, 0.14);
+  --color-glass-border-strong: rgba(255, 255, 255, 0.24);
+  --color-glass-highlight: rgba(255, 255, 255, 0.35);
+
+  --color-bg-base: var(--bg-base);
+  --color-bg-elevated-1: var(--bg-elevated-1);
+  --color-bg-elevated-2: var(--bg-elevated-2);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+
+  --color-neutral-100: #F5F5F8;
+  --color-neutral-200: #E7E7ED;
+  --color-neutral-300: #CBCBD6;
+  --color-neutral-400: #A6A6B5;
+  --color-neutral-500: #7F7F92;
+  --color-neutral-600: #5C5C6E;
+  --color-neutral-700: #3E3E4C;
+  --color-neutral-800: #26262F;
+  --color-neutral-900: #151519;
+  --color-neutral-950: #08090C;
+
+  --color-success: #5CFFB0;
+  --color-warning: #FFD37B;
+  --color-danger: #FF6C6C;
+  --color-info: #5CE1FF;
+
+  --spacing-1: 4px;
+  --spacing-2: 8px;
+  --spacing-3: 12px;
+  --spacing-4: 16px;
+  --spacing-5: 20px;
+  --spacing-6: 24px;
+  --spacing-7: 32px;
+  --spacing-8: 40px;
+  --spacing-9: 48px;
+  --spacing-10: 64px;
+  --spacing-12: 80px;
+  --spacing-14: 96px;
+  --spacing-16: 128px;
+  --spacing-18: 160px;
+  --spacing-20: 200px;
+  --spacing-24: 240px;
+  --spacing-32: 320px;
+
+  --radius-xs: 6px;
+  --radius-sm: 10px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-xl: 28px;
+  --radius-2xl: 36px;
+  --radius-3xl: 48px;
+  --radius-4xl: 64px;
+  --radius-pill: 999px;
+  --radius-orb: 50%;
+
+  --font-display: 'Clash Display', 'General Sans', system-ui, sans-serif;
+  --font-primary: 'General Sans', -apple-system, 'Segoe UI', sans-serif;
+  --font-secondary: 'Fraunces', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'SFMono-Regular', monospace;
+  
+  --shadow-soft-sm: var(--shadow-soft-sm-val);
+  --shadow-soft-md: var(--shadow-soft-md-val);
+  --shadow-float: var(--shadow-float-val);
+  --shadow-glow-primary: 0 0 40px rgba(123, 108, 255, var(--glow-intensity));
+  --shadow-glow-pink: 0 0 40px rgba(255, 108, 171, var(--glow-intensity));
+  --shadow-orb: 0 0 120px rgba(157, 92, 255, 0.35);
+  --shadow-glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  
+  --blur-sm: 8px;
+  --blur-md: 16px;
+  --blur-lg: 24px;
+  --blur-xl: 32px;
+  --blur-2xl: 48px;
+
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+:root {
+  /* Dark mode (default) */
+  --bg-base: #08090C;
+  --bg-elevated-1: #0E1015;
+  --bg-elevated-2: #15171E;
+  --text-primary: #F5F5F8;
+  --text-secondary: #A6A6B5;
+  
+  --shadow-soft-sm-val: 0 2px 8px rgba(0, 0, 0, 0.20);
+  --shadow-soft-md-val: 0 8px 24px rgba(0, 0, 0, 0.28);
+  --shadow-float-val: 0 24px 64px rgba(0, 0, 0, 0.40);
+  --glow-intensity: 0.45;
+}
+
+.light {
+  /* Light mode overrides */
+  --bg-base: #e2e2e6;
+  --bg-elevated-1: #d6d6db;
+  --bg-elevated-2: #cacad0;
+  --text-primary: #08090C;
+  --text-secondary: #5C5C6E;
+  
+  /* Accent color overrides for light mode contrast */
+  --color-accent-cyan: #0082A8;
+  --color-accent-lime: #458800;
+  --color-accent-gold: #B38000;
+  
+  --shadow-soft-sm-val: 0 2px 8px rgba(30, 30, 50, 0.08);
+  --shadow-soft-md-val: 0 8px 24px rgba(30, 30, 50, 0.12);
+  --shadow-float-val: 0 24px 64px rgba(30, 30, 50, 0.15);
+  --glow-intensity: 0.31;
+  
+  /* Light mode glassmorphism */
+  --color-glass-fill-01: rgba(255, 255, 255, 0.4);
+  --color-glass-fill-02: rgba(255, 255, 255, 0.6);
+  --color-glass-fill-03: rgba(255, 255, 255, 0.8);
+  --color-glass-border: rgba(255, 255, 255, 0.8);
+  --color-glass-border-strong: rgba(255, 255, 255, 1);
+  --color-glass-highlight: rgba(255, 255, 255, 1);
+}
+
+@layer utilities {
+  .gradient-aurora-blue { background: linear-gradient(135deg, #5A7BFF, #9D5CFF); }
+  .gradient-nebula-purple { background: linear-gradient(120deg, #3B2E8F, #7B6CFF, #FF6CAB); }
+  .gradient-gravity-pink { background: linear-gradient(100deg, #FF6CAB, #FFD37B); }
+  .gradient-cyber-cyan { background: linear-gradient(90deg, #5CE1FF, #5A7BFF); }
+  .gradient-sunset-glass { background: linear-gradient(160deg, #FF8FC0, #7B6CFF, #5CE1FF); }
+  .gradient-chrome-silver { background: linear-gradient(110deg, #FFFFFF, #A6A6B5, #FFFFFF); }
+  .gradient-midnight-aurora { background: linear-gradient(180deg, #08090C, #241E4E, #5A7BFF); }
+  .gradient-cosmic-indigo { background: linear-gradient(145deg, #151519, #3B2E8F); }
+  .gradient-liquid-green { background: linear-gradient(100deg, #5CFFB0, #5CE1FF); }
+  .gradient-electric-violet { background: linear-gradient(135deg, #7B6CFF, #FF6CAB); }
+  .gradient-orb-core { background: radial-gradient(circle, #FFFFFF, #9D5CFF, transparent); }
+  .gradient-glass-sheen { background: linear-gradient(120deg, rgba(255,255,255,0.3), transparent); }
+  .gradient-frost-line { background: linear-gradient(90deg, #5CE1FF, transparent); }
+  .gradient-deep-space { background: linear-gradient(180deg, #08090C, #0E1015, #151519); }
+  .gradient-solar-flare { background: linear-gradient(100deg, #FFD37B, #FF6CAB, #7B6CFF); }
+  
+  .text-gradient {
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+  }
+  
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+}
+
+body {
+  background-color: var(--color-bg-base);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  overflow-x: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 { font-family: var(--font-display); font-weight: 600; }
+
+.text-display-hero { font-size: clamp(36px, 8vw, 128px); line-height: 0.98; letter-spacing: -0.02em; }
+.text-display-xxl { font-size: clamp(32px, 6vw, 96px); line-height: 1.0; letter-spacing: -0.02em; }
+.text-display-xl { font-size: clamp(28px, 5vw, 72px); line-height: 1.02; letter-spacing: -0.015em; }
+.text-h1 { font-size: clamp(28px, 4.5vw, 56px); line-height: 1.05; letter-spacing: -0.01em; }
+.text-h2 { font-size: clamp(24px, 4vw, 40px); line-height: 1.1; letter-spacing: -0.005em; }
+.text-h3 { font-size: clamp(20px, 3vw, 28px); line-height: 1.2; font-weight: 500; }
+.text-h4 { font-size: clamp(18px, 2.5vw, 22px); line-height: 1.3; font-weight: 500; }
+.text-h5 { font-size: clamp(16px, 2vw, 18px); line-height: 1.4; font-weight: 500; }
+.text-h6 { font-size: clamp(14px, 1.5vw, 16px); line-height: 1.4; font-weight: 600; letter-spacing: 0.02em; text-transform: uppercase; }
+
+.text-body-lg { font-size: clamp(17px, 2vw, 20px); line-height: 1.6; }
+.text-body-md { font-size: clamp(15px, 1.8vw, 17px); line-height: 1.6; }
+.text-body-sm { font-size: clamp(14px, 1.5vw, 15px); line-height: 1.55; }
+.text-caption { font-size: clamp(12px, 1.2vw, 13px); line-height: 1.4; letter-spacing: 0.01em; }
+.text-button { font-size: clamp(15px, 1.6vw, 16px); line-height: 1; font-weight: 500; letter-spacing: 0.005em; }
+.text-badge { font-size: clamp(11px, 1.1vw, 12px); line-height: 1; font-weight: 600; letter-spacing: 0.04em; text-transform: uppercase; }
+.text-mono-tag { font-family: var(--font-mono); font-size: clamp(12px, 1.2vw, 13px); line-height: 1.3; }
+
+::selection { background-color: var(--color-primary-500); color: #fff; }
+
+.glass-1 {
+  background: var(--color-glass-fill-01);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-soft-sm);
+}
+
+.glass-2 {
+  background: var(--color-glass-fill-02);
+  backdrop-filter: blur(var(--blur-md));
+  -webkit-backdrop-filter: blur(var(--blur-md));
+  border: 1px solid var(--color-glass-border);
+  box-shadow: var(--shadow-glass-inset), var(--shadow-soft-md);
+}
+
+.glass-3 {
+  background: var(--color-glass-fill-03);
+  backdrop-filter: blur(var(--blur-xl));
+  -webkit-backdrop-filter: blur(var(--blur-xl));
+  border: 1.5px solid var(--color-glass-border-strong);
+  box-shadow: var(--shadow-glass-inset), var(--shadow-float);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent-cyan);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Premium Theme Switch Animation (View Transitions API) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+::view-transition-old(root) {
+  z-index: 1;
+}
+
+::view-transition-new(root) {
+  z-index: 2;
+  animation: theme-wipe-in 0.8s cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+
+/* On changing to dark mode, we could wipe out, but wiping in the new state is universally smoother */
+.dark::view-transition-new(root) {
+  animation: theme-wipe-in 0.8s cubic-bezier(0.25, 1, 0.3, 1) both;
+}
+
+@keyframes theme-wipe-in {
+  0% {
+    clip-path: circle(0px at calc(50% + 280px) 45px);
+  }
+  100% {
+    clip-path: circle(150vmax at calc(50% + 280px) 45px);
+  }
+}
+
+/* Profile Image Theme Switch */
+.profile-light { opacity: 0; }
+.profile-dark { opacity: 1; }
+.light .profile-light { opacity: 1; }
+.light .profile-dark { opacity: 0; }
+
+/* Custom Modern Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--text-secondary);
+  border-radius: 999px;
+  border: 3px solid var(--bg-base);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary);
+}

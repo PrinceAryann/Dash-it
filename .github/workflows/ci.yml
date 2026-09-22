@@ -1,0 +1,96 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  frontend:
+    name: Frontend Build & Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: './frontend/package-lock.json'
+      - name: Install dependencies
+        run: npm ci
+      - name: NPM Audit
+        run: npm audit --audit-level=high || true
+      - name: Lint
+        run: npm run lint
+      - name: Build
+        run: npm run build
+        env:
+          VITE_API_BASE_URL: "http://localhost:8000/api"
+          VITE_SITE_URL: "http://localhost:5173"
+
+  backend:
+    name: Backend Test & Lint
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    services:
+      postgres:
+        image: postgres:15
+        env:
+          POSTGRES_USER: dashit
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: dashit_test_db
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: 'pip'
+          cache-dependency-path: './backend/requirements.txt'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+          pip install pytest pytest-asyncio httpx mypy black ruff pip-audit
+
+      - name: Pip Audit
+        run: pip-audit || true
+
+      - name: Lint with Ruff
+        run: ruff check .
+
+      - name: Check formatting with Black
+        run: black --check .
+
+      - name: Type check with Mypy
+        run: mypy app/
+
+      - name: Run Pytest & Migrations
+        env:
+          DATABASE_URL: postgresql+asyncpg://dashit:password@localhost/dashit_test_db
+          SECRET_KEY: testsecretkey12345678901234567890
+          JWT_SECRET_KEY: testjwtsecretkey12345678901234567890
+          JWT_REFRESH_SECRET_KEY: testjwtrefreshsecretkey1234567890123
+          ADMIN_EMAIL: admin@test.com
+          ADMIN_PASSWORD: testpassword
+          FRONTEND_URL: http://localhost:5173
+          BACKEND_URL: http://localhost:8000
+        run: |
+          alembic upgrade head
+          PYTHONPATH=. pytest tests/
