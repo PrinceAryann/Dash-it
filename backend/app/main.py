@@ -25,6 +25,9 @@ def format_record(record):
     return f"{{time:YYYY-MM-DD HH:mm:ss}} | {{level: <8}} | {{name}}:{{function}}:{{line}}{req_id_str} - {{message}}\n"
 
 logger.add(sys.stderr, format=format_record, level="INFO")
+
+import os
+os.makedirs("logs", exist_ok=True)
 logger.add("logs/app.log", rotation="10 MB", level="DEBUG", format=format_record)
 
 app = FastAPI(
