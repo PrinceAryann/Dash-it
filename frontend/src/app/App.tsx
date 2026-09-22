@@ -16,14 +16,14 @@ export default function App() {
       try {
         const response = await originalFetch.apply(this, args);
         if ([502, 503, 504].includes(response.status)) {
-          if (window.location.pathname !== '/offline') {
+          if (!window.location.pathname.includes('/offline') && !sessionStorage.getItem('offlineBypass')) {
             window.location.pathname = '/offline';
           }
         }
         return response;
       } catch (error) {
         // Network errors
-        if (window.location.pathname !== '/offline') {
+        if (!window.location.pathname.includes('/offline') && !sessionStorage.getItem('offlineBypass')) {
           window.location.pathname = '/offline';
         }
         throw error;

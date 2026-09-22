@@ -69,7 +69,10 @@ export const ServerError: React.FC = () => {
               )}
             </Button>
             <Button 
-              onClick={() => window.location.href = '/'} 
+              onClick={() => {
+                sessionStorage.setItem('offlineBypass', 'true');
+                window.location.href = '/';
+              }} 
               variant="ghost"
               disabled={isWaking}
             >
