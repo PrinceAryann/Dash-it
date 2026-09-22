@@ -48,6 +48,7 @@ async def add_security_headers_and_request_id(request: Request, call_next):
     response.headers["Strict-Transport-Security"] = "max-age=31536000; includeSubDomains"
     response.headers["X-Frame-Options"] = "DENY"
     response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+    response.headers["Content-Security-Policy"] = "default-src 'self'"
     
     # Correlation ID Header
     response.headers["X-Request-ID"] = req_id

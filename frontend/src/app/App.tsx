@@ -1,5 +1,6 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
+import { HelmetProvider } from "react-helmet-async";
 import { ThemeProvider, SmoothScrollProvider } from "@/context";
 import { AuthProvider } from "@/context/AuthContext";
 import { CustomCursor } from "@/components/animations";
@@ -34,17 +35,19 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider defaultTheme="dark" storageKey="dashit-theme">
-      <AuthProvider>
-        <SmoothScrollProvider>
-          <LoadingScreen />
-          <CustomCursor />
-          <Router>
-            <ScrollToTop />
-            <AnimatedRoutes />
-          </Router>
-        </SmoothScrollProvider>
-      </AuthProvider>
-    </ThemeProvider>
+    <HelmetProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="dashit-theme">
+        <AuthProvider>
+          <SmoothScrollProvider>
+            <LoadingScreen />
+            <CustomCursor />
+            <Router>
+              <ScrollToTop />
+              <AnimatedRoutes />
+            </Router>
+          </SmoothScrollProvider>
+        </AuthProvider>
+      </ThemeProvider>
+    </HelmetProvider>
   );
 }

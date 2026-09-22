@@ -54,9 +54,9 @@ export default function Contact() {
                         <a href={settings.contact_email ? `mailto:${settings.contact_email}` : '#'} className="text-body-md text-text-primary hover:text-accent-cyan transition-colors">
                            Email: {settings.contact_email}
                         </a>
-                        <a href="#" className="text-body-md text-text-primary hover:text-accent-cyan transition-colors">
+                        <p className="text-body-md text-text-primary hover:text-accent-cyan transition-colors cursor-default">
                            WhatsApp: @its_meh_Prince
-                        </a>
+                        </p>
                      </div>
                      <p className="text-caption text-text-secondary">Quickest way to discuss a project or ask questions.</p>
                   </Card>

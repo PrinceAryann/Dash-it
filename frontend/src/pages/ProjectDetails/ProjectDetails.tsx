@@ -54,9 +54,36 @@ export function ProjectDetails() {
             </Button>
             
             {project ? (
-               <div className="flex flex-col gap-8">
-                  <h1 className="text-display-md text-text-primary">{project.title || slug}</h1>
-                  {/* Additional project details would go here based on API data structure */}
+               <div className="flex flex-col gap-12">
+                  <div className="flex flex-col gap-4">
+                     <h1 className="text-display-md text-text-primary">{project.title || slug}</h1>
+                     {project.description && (
+                        <p className="text-body-lg text-text-secondary max-w-[800px] leading-relaxed">
+                           {project.description}
+                        </p>
+                     )}
+                  </div>
+                  
+                  {project.image_url && (
+                     <div className="w-full h-[400px] md:h-[600px] rounded-3xl overflow-hidden glass-1 border border-glass-border">
+                        <img 
+                           src={project.image_url} 
+                           alt={project.title} 
+                           className="w-full h-full object-cover"
+                        />
+                     </div>
+                  )}
+
+                  {project.features && project.features.length > 0 && (
+                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                        {project.features.map((feature: string, idx: number) => (
+                           <div key={idx} className="glass-2 p-6 rounded-2xl border border-glass-border">
+                              <div className="w-2 h-2 rounded-full bg-accent-cyan mb-4" />
+                              <p className="text-body-md text-text-primary">{feature}</p>
+                           </div>
+                        ))}
+                     </div>
+                  )}
                </div>
             ) : (
                <div className="flex flex-col items-center justify-center h-[50vh] text-center gap-6">
